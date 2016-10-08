@@ -7,27 +7,19 @@ namespace BLL
 {
     public class MaterialesDetalles
     {
-        private TiposMateriales tipo;
-        private string cantidad;
-
-        public TiposMateriales Materiale { get; set; } 
+        public string Material { get; set; } 
         public int Cantidad { get; set; }
 
-        public string Tipo
+        public MaterialesDetalles()
         {
-            get { return this.Materiale.ToString(); }
+            this.Material = "";
+            this.Cantidad=0;
         }
 
-        public MaterialesDetalles(TiposMateriales tipo, int cantidad)
+        public MaterialesDetalles(string material, int cantidad)
         {
-            this.Materiale = tipo;
-            this.Cantidad=cantidad;
-        }
-
-        public MaterialesDetalles(TiposMateriales tipo, string cantidad)
-        {
-            this.tipo = tipo;
-            this.cantidad = cantidad;
+            Material = material;
+            Cantidad = cantidad;
         }
     }
    

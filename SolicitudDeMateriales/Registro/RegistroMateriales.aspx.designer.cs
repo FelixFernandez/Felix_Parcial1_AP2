@@ -40,13 +40,13 @@ namespace SolicitudDeMateriales.Registro {
         protected global::System.Web.UI.WebControls.TextBox TextBoxRazon;
         
         /// <summary>
-        /// DropDownListTela control.
+        /// TextBoxMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListTela;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxMaterial;
         
         /// <summary>
         /// TextBoxCantidad control.

@@ -11,13 +11,13 @@ namespace BLL
     {
         public int MaterialesId { get; set; }
         public string Razon { get; set; }
-        public List<MaterialesDetalles> Materiale { get; set; }
+        public List<MaterialesDetalles> Tipo { get; set; }
 
         public Materiales()
         {
             this.MaterialesId = 0;
             this.Razon = "";
-            Materiale = new List<MaterialesDetalles>();
+            Tipo = new List<MaterialesDetalles>();
         }
 
 
@@ -25,16 +25,14 @@ namespace BLL
         public override bool Insertar()
         {
             ConexionDb conexion = new ConexionDb();
-            int retorno = 0;
-            object identity;
+            MaterialesDetalles md = new MaterialesDetalles();
+            bool retorno = false;
             try
             {
-               identity = conexion.ObtenerValor(string.Format("Insert Into Materiales(Razon) values('{0}') select @@Identity", this.Razon));
-                int.TryParse(identity.ToString(), out retorno);
-                this.MaterialesId = retorno;
-                foreach (MaterialesDetalles item in this.Materiale)
-                {
-                    conexion.Ejecutar(string.Format("insert into Materiales(MaterialesDetallesId,MaterialesId,TiposMateriales,Cantidad) Values ({0},{1},'{2}')", retorno, (int)item.Materiale, (int)item.Cantidad));
+                conexion.ObtenerDatos(string.Format("Insert Into Materiales(MaterialesId,Razon) values('"+this.MaterialesId+"','" +this.Razon+"') select @@Identity"));
+                
+                foreach(MaterialesDetalles item in Tipo){
+                    conexion.Ejecutar(string.Format("Insert Into Materiales(MaterialesDetallesId,MaterialesId,TiposMateriales,Cantidad) Values ('"+md.Material+"','"+md.Cantidad+"')select @@Identity"));
                 }
 
             }
@@ -43,13 +41,12 @@ namespace BLL
                 throw ex;
             }
 
-            return retorno > 0;
+            return retorno;
         }
 
-        public void AgregarMateriales(TiposMateriales tipo, string Cantidad)
+        public void AgregarMateriales(string material, int cantidad)
         {
-           
-            Materiale.Add(new MaterialesDetalles(tipo, Cantidad));
+            Tipo.Add(new MaterialesDetalles(material,cantidad));
         }
 
         public override bool Eliminar()
@@ -73,19 +70,3 @@ namespace BLL
         }
     }
 }
-
-     /*   public override bool Editar()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Buscar(int IdBuscado)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override DataTable Listado(string Campos, string Condicion, string Orden)
-        {
-            throw new NotImplementedException();
-        }*/
-

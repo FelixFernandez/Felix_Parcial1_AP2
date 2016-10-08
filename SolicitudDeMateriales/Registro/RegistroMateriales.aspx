@@ -11,10 +11,8 @@
         Razon:<asp:TextBox ID="TextBoxRazon" runat="server"></asp:TextBox>
     </p>
     <p>
-        Material:&nbsp;&nbsp;&nbsp;&nbsp;<asp:DropDownList ID="DropDownListTela" runat="server">
-            <asp:ListItem>tela</asp:ListItem>
-        </asp:DropDownList>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cantidad:<asp:TextBox ID="TextBoxCantidad" runat="server"></asp:TextBox>
+        Material:&nbsp;&nbsp;&nbsp;<asp:TextBox ID="TextBoxMaterial" runat="server"></asp:TextBox>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cantidad:<asp:TextBox ID="TextBoxCantidad" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click1" Text="Agregar" />
     </p>
     <p>
