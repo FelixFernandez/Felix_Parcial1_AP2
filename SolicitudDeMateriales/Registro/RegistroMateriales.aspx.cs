@@ -12,20 +12,16 @@ namespace SolicitudDeMateriales.Registro
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+               
+                GridView1.DataBind();
+            }
         }
 
 
         protected void ButtonGuardar_Click1(object sender, EventArgs e)
         {
-
-            /* Materiales materiales;
-             if (Session["Materiales"] == null)
-                 Session["Materiales"] = new Materiales();
-
-             materiales = (Materiales)Session["Materiales"];
-
-            materiales.MaterialesId = Convert.ToInt32(TextBoxId.Text);*/
             Materiales materiales = new Materiales();
 
             materiales.Razon = TextBoxRazon.Text;
@@ -35,7 +31,9 @@ namespace SolicitudDeMateriales.Registro
             {
                 TextBoxId.Text = materiales.MaterialesId.ToString();
                 TextBoxRazon.Text = materiales.Razon.ToString();
+                Limpiar();
                 Response.Write("se guardo correctamente");
+                
             }
 
         }
@@ -46,35 +44,40 @@ namespace SolicitudDeMateriales.Registro
              if (Session["Materiales"] == null)
                  Session["Materiales"] = new Materiales();
             materiale = (Materiales)Session["Materiales"];
-           
 
-            materiale.AgregarMateriales(TextBoxMaterial.Text, Convert.ToInt32(TextBoxCantidad.Text));
+            MaterialesDetalles md = new MaterialesDetalles();
+
+            md.Material = TextBoxMaterial.Text;
+            md.Cantidad = Convert.ToInt32(TextBoxCantidad.Text);
+
+            materiale.AgregarMateriales(md.Material, md.Cantidad);
 
 
             Session["Materiales"] = materiale;
 
             GridView1.DataSource = materiale.Tipo;
             GridView1.DataBind();
-
-            TextBoxMaterial.Text = "";
-            TextBoxCantidad.Text = "";
+           
            
         }
 
         protected void ButtonEliminar_Click(object sender, EventArgs e)
         {
             Materiales materiale = new Materiales();
+            materiale.MaterialesId = Convert.ToInt32(TextBoxId.Text);
             if (materiale.Eliminar())
             {
                 Response.Write("se elimino correctamente");
-                TextBoxId.Text = string.Empty;
-                TextBoxCantidad.Text = string.Empty;
-                TextBoxRazon.Text = string.Empty;
-                TextBoxMaterial.Text = string.Empty;
+                Limpiar();
             }
         }
 
         protected void ButtonNuevo_Click(object sender, EventArgs e)
+        {
+            Limpiar();
+        }
+
+       public void Limpiar()
         {
             TextBoxId.Text = string.Empty;
             TextBoxCantidad.Text = string.Empty;

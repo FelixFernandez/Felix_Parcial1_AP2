@@ -32,8 +32,9 @@ namespace BLL
                 conexion.ObtenerDatos(string.Format("Insert Into Materiales(MaterialesId,Razon) values('"+this.MaterialesId+"','" +this.Razon+"') select @@Identity"));
                 
                 foreach(MaterialesDetalles item in Tipo){
-                    conexion.Ejecutar(string.Format("Insert Into Materiales(MaterialesDetallesId,MaterialesId,TiposMateriales,Cantidad) Values ('"+md.Material+"','"+md.Cantidad+"')select @@Identity"));
-                }
+                    conexion.Ejecutar(string.Format("Insert Into MaterialesDetalles(MaterialesId,TiposMateriales,Cantidad) Values('" + md.Material + "','" + md.Cantidad +"')", retorno, (string)item.Material, (int)item.Cantidad));
+                    
+                   }
 
             }
             catch (Exception ex)
@@ -53,18 +54,13 @@ namespace BLL
         {
             ConexionDb conexion = new ConexionDb();
             bool retorno = false;
-            try
-            {
-                retorno = conexion.Ejecutar(string.Format("delete from Materiales where MaterialesId=", this.MaterialesId));
+           
+                conexion.Ejecutar(string.Format("Delete from Materiales where MaterialesId =", this.MaterialesId));
 
-                if (retorno)
-                    conexion.Ejecutar("Delete from MaterialesDetalles Where MaterialeId=" + this.MaterialesId.ToString());
+                if (retorno) { 
+                    conexion.Ejecutar("Delete from MaterialesDetalles Where MaterialesId =" + this.MaterialesId.ToString());
             }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+           
             return retorno;
 
         }
